@@ -42,7 +42,8 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db")
 # *            ASYN_CANBLOCK is set in asynFlags.
 # */
 # config directory contains configuration files defined Globals.h, IP addresses, gains, and Medapix3 chip parameters
-#int LambdaConfig(const char *portName, const char* configPath, int maxBuffers, size_t maxMemory, int priority, int stackSize) {
+# config directory should be provided on PC from vendor with detector. Copy it into iocBoot, and replace "/localdata/config " with simply "config"
+# int LambdaConfig(const char *portName, const char* configPath, int maxBuffers, size_t maxMemory, int priority, int stackSize) {
 LambdaConfig("$(PORT)", "/localdata/config",  0, 0, 0, 0)
 epicsThreadSleep(2)
 
