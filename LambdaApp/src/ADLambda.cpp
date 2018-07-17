@@ -13,7 +13,7 @@
 #include <iostream>
 #include <string.h>
 #include "ADLambda.h"
-#include <LambdaSysImpl.h>
+#include <fsdetector/lambda/LambdaSysImpl.h>
 
 static void lambdaHandleNewImageTaskC(void *drvPvt);
 //static void lambdaHandleNewImageTaskMultiC(void *drvPvt);
