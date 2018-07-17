@@ -8,7 +8,7 @@ include $(TOP)/configure/CONFIG
 #SRC_DIRS += ../liblambda-$(EPICS_HOST_ARCH)/include
 #SRC_DIRS += ../libfsdetcore-$(EPICS_HOST_ARCH)/include
 #prebuilt includes
-SRC_DIRS += ../prebuiltincludes
+SRC_DIRS += ../vendorinclude
 #INC += DetInterface.h
 INC += fsdetector/lambda/Version.h
 INC += fsdetector/lambda/LambdaGlobals.h
@@ -31,10 +31,10 @@ ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
 #LIB_INSTALLS_Linux += ../libfsdetcore-$(EPICS_HOST_ARCH)/lib/libfsdetcore.so
 #LIB_INSTALLS_Linux += ../liblambda-$(EPICS_HOST_ARCH)/lib/liblambda.so.1.0
 #LIB_INSTALLS_Linux += ../libfsdetcore-$(EPICS_HOST_ARCH)/lib/libfsdetcore.so.0.9
-LIB_INSTALLS_Linux += ../prebuiltlibs/libfsdetcore.so.0.8
-LIB_INSTALLS_Linux += ../prebuiltlibs/liblambda.so.0.9
-LIB_INSTALLS_Linux += ../prebuiltlibs/liblambda.so
-LIB_INSTALLS_Linux += ../prebuiltlibs/libfsdetcore.so
+LIB_INSTALLS_Linux += ../os/$(EPICS_HOST_ARCH)/libfsdetcore.so.0.8
+LIB_INSTALLS_Linux += ../os/$(EPICS_HOST_ARCH)/liblambda.so.0.9
+LIB_INSTALLS_Linux += ../os/$(EPICS_HOST_ARCH)/liblambda.so
+LIB_INSTALLS_Linux += ../os/$(EPICS_HOST_ARCH)/libfsdetcore.so
 endif
 
 vpath %.tpp $(USR_VPATH) $(ALL_SRC_DIRS) include 

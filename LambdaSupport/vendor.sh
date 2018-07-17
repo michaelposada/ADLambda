@@ -5,22 +5,42 @@
 #	ask the vendor which version needs to be pulled for your specific detector
 
 URL_LIBFSDETCORE=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/libfsdetcore/archive?format=zip
+#URL_LIBLAMBDA=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/liblambda/archive?at=refs%2Fheads%2Ffeature%2Fmerged750k60k&format=zip
 URL_LIBLAMBDA=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/liblambda/archive?format=zip
+DETCORE_MANUAL="NO"
+LAMBDA_MANUAL="NO"
 LAMBDA_SUPPORT=$(pwd)
 
-echo "Downloading zip of master repos"
-mkdir libfsdetcore
-cd libfsdetcore
-curl $URL_LIBFSDETCORE -o libfsdetcore.zip
-unzip libfsdetcore.zip
-rm libfsdetcore.zip
-cd ..
-mkdir liblambda
-cd liblambda
-curl $URL_LIBLAMBDA -o liblambda.zip
-unzip liblambda.zip
-rm liblambda.zip
-cd ..
+if [ "$DETCORE_MANUAL" = "NO" ]
+then
+	echo "Downloading zip of master branch of detcore"
+	mkdir libfsdetcore
+	cd libfsdetcore
+	curl $URL_LIBFSDETCORE -o libfsdetcore.zip
+	unzip libfsdetcore.zip
+	rm libfsdetcore.zip
+	cd ..
+else
+	cd libfsdetcore
+	unzip libfsdetcore.zip
+	rm libfsdetcore.zip
+	cd ..
+fi
+
+if [ "$LAMBDA_MANUAL" = "NO" ]
+then
+	mkdir liblambda
+	cd liblambda
+	curl $URL_LIBLAMBDA -o liblambda.zip
+	unzip liblambda.zip
+	rm liblambda.zip
+	cd ..
+else
+	cd liblambda
+	unzip liblambda.zip
+	rm liblambda.zip
+	cd ..
+fi
 
 echo "Create necessary directories"
 mkdir liblambda-build
@@ -56,7 +76,7 @@ cp -r libfsdetcore-linux-x86_64/include/fsdetector/core vendorinclude/fsdetector
 cp -r liblambda-linux-x86_64/include/fsdetector/lambda vendorinclude/fsdetector/.
 
 # Optionally remove all build+source folders
-#rm -rf lib*
+rm -rf lib*
 
 #export LD_LIBRARY_PATH=$LAMBDA_SUPPORT/os/linux-x86_64
 
