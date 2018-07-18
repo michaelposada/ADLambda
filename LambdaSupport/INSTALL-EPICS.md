@@ -77,7 +77,7 @@ if the CMAKE_INSTALL_PREFIX described there is liblambda-$(EPICS_HOST_ARCH).
 
 To build the liblambda for use with EPICS areaDetector, perform the following commands from within the
 LambdaSuppport directory:
-
+```
 #create directories from the build information
 mkdir liblambda-build
 mkdir liblambda-linux-x86_64
@@ -93,7 +93,7 @@ cd ..
 # This make will happen as part of areaDetector build, It installs headers
 # and libraries in ADLambda/lib, include, etc so that it will be found by EPICS builds.
 make
-
+```
 
 
 
