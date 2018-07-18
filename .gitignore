@@ -25,3 +25,4 @@ external/
 !CMakeLists.txt
 config/
 test/
+rmhist.sh
