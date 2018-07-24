@@ -4,9 +4,8 @@
 #	the newest version of the code on bitbucket was not compatible. Make sure to
 #	ask the vendor which version needs to be pulled for your specific detector
 
-URL_LIBFSDETCORE=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/libfsdetcore/archive?format=zip
-#URL_LIBLAMBDA=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/liblambda/archive?at=refs%2Fheads%2Ffeature%2Fmerged750k60k&format=zip
-URL_LIBLAMBDA=https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/liblambda/archive?format=zip
+URL_LIBFSDETCORE="https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/libfsdetcore/archive?format=zip"
+URL_LIBLAMBDA="https://stash.desy.de/rest/api/latest/projects/FSDSDET/repos/liblambda/archive?at=refs%2Fheads%2Ffeature%2Fmerged750k60k&format=zip"
 DETCORE_MANUAL="NO"
 LAMBDA_MANUAL="NO"
 LAMBDA_SUPPORT=$(pwd)
