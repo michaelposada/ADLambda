@@ -16,6 +16,7 @@ USR_INCLUDES += -I$(LAMBDA_HOME)/include/fsdetector/lambda
 LIBRARY_IOC = ADLambda
 LIB_SRCS += ADLambda.cpp
 LIB_LIBS += lambda
+#SYS_PROD_LIBS += boost_system
 
 
 DBD += LambdaSupport.dbd

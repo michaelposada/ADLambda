@@ -1,1 +1,2 @@
-$(P)$(R)EnergyThreshold
+$(P)$(R)HighEnergyThreshold
+$(P)$(R)LowEnergyThreshold

@@ -13,7 +13,7 @@
 #include <iostream>
 #include <string.h>
 #include "ADLambda.h"
-#include <LambdaSysImpl.h>
+#include <fsdetector/lambda/LambdaSysImpl.h>
 
 #define DRIVER_VERSION 1
 #define DRIVER_REVISION 0
@@ -113,7 +113,6 @@ ADLambda::ADLambda(const char *portName, const char *configPath, int maxBuffers,
     status |= ADDriver::createParam(LAMBDA_BadImageString,
             asynParamInt32, &LAMBDA_BadImage);
     status |= connect(pasynUserSelf);
-    
     status |= initializeDetector();
 
     epicsAtExit(exitCallbackC, this);
@@ -143,7 +142,7 @@ asynStatus ADLambda::acquireStart(){
             "%s:%s Enter\n", driverName, __FUNCTION__);
     int status = asynSuccess;
     int dataType;
-    
+
     setIntegerParam(ADNumImagesCounter, 0);
     setIntegerParam(LAMBDA_BadFrameCounter, 0);
     callParamCallbacks();
