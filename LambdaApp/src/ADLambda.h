@@ -44,6 +44,8 @@ public:
     short* getDecodedImageShort(int32& lFrameNo, int16& shErrCode);
     int* getDecodedImageInt(int32& lFrameNo, int16& shErrCode);
 //    void getImageFormat(int& nX, int& nY, int& nImgDepth);
+    void checkThresholdNumber(int num);
+    void checkOperatingMode();
     void handleNewImageTask(void);
     void report(FILE *fp, int details);
     virtual asynStatus  readInt32 (asynUser *pasynUser, epicsInt32 *value);

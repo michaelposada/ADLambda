@@ -301,6 +301,33 @@ int ADLambda::getImageDepth(){
 }
 
 /**
+Testing function for checking if threshold mode functions correctly
+ */
+void ADLambda::checkThresholdNumber(int num){
+  int threshMode;
+  getIntegerParam(LAMBDA_OperatingMode, &threshMode);
+  if(num != 1 && num != 0){
+    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "%s::%s Not valid threshold number\n", driverName, __FUNCTION__);
+  }
+  else if(num == 1 && threshMode != 2){
+    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "%s::%s Not valid threshold number\n", driverName, __FUNCTION__);
+  }
+  else{
+    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "%s::%s the %d thresh value is set to %lf\n", driverName, __FUNCTION__, num, lambdaInstance->GetThreshold(num));
+  }
+}
+
+/**
+Check for operating mode
+ */
+void ADLambda::checkOperatingMode(){
+  string opMode = lambdaInstance->GetOperationMode();
+  const char* opModeC = opMode.c_str();
+  asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "%s::%s the operating mode is: %s\n", driverName, __FUNCTION__,opModeC);
+  //asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "%s::%s
+}
+
+/**
  * This method is called by handleNewImageTaskC as the image handling thread
  * is created.  This method runs a continuous loop which constantly checks
  * for images in the buffer queue.  When new images are seen they are pulled
@@ -846,9 +873,11 @@ asynStatus ADLambda::writeFloat64(asynUser *pasynUser, epicsFloat64 value) {
     }
     else if (function == LAMBDA_HighEnergyThreshold){
         lambdaInstance->SetThreshold((int)1, (float)value);
+	checkThresholdNumber(1);
     }
     else if (function == LAMBDA_LowEnergyThreshold){
         lambdaInstance->SetThreshold((int)0, (float)value);
+	checkThresholdNumber(0);
     }
     else {
         if (function < LAMBDA_FIRST_PARAM) {
@@ -900,7 +929,7 @@ asynStatus ADLambda::writeInt32(asynUser *pasynUser, epicsInt32 value) {
     }
     else if (function == LAMBDA_OperatingMode) {
         asynPrint(pasynUser, ASYN_TRACE_ERROR,
-                "%s:%s Setting TriggerMode %d\n",
+                "%s:%s Setting OperationMode %d\n",
                 driverName,
                 __FUNCTION__,
                 value);
@@ -917,7 +946,15 @@ asynStatus ADLambda::writeInt32(asynUser *pasynUser, epicsInt32 value) {
             setIntegerParam(NDDataType, NDUInt32);
             callParamCallbacks();
             createImageHandlerThread();
-        }        
+        }
+        else if(value == 2) {
+            killImageHandlerThread();
+	    lambdaInstance->SetOperationMode(string("DualThreshold"));
+	    setIntegerParam(NDDataType, NDUInt16);
+            callParamCallbacks();
+            createImageHandlerThread();
+	}
+	checkOperatingMode();
     }
     else if (function < LAMBDA_FIRST_PARAM) {
         status = ADDriver::writeInt32(pasynUser, value);
