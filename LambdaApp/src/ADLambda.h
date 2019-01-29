@@ -20,7 +20,7 @@ using namespace DetLambdaNS;
 #include <epicsEvent.h>
 #include <epicsThread.h>
 
-#include <LambdaSysImpl.h>
+#include <fsdetector/lambda/LambdaSysImpl.h>
 
 #include "ADDriver.h"
 
