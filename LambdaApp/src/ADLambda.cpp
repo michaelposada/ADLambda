@@ -94,8 +94,10 @@ ADLambda::ADLambda(const char *portName, const char *configPath, int maxBuffers,
             asynParamOctet, &LAMBDA_VersionNumber);
     status |= ADDriver::createParam(LAMBDA_ConfigFilePathString,
             asynParamOctet, &LAMBDA_ConfigFilePath);
-    status |= ADDriver::createParam(LAMBDA_EnergyThresholdString,
-            asynParamFloat64, &LAMBDA_EnergyThreshold);
+    status |= ADDriver::createParam(LAMBDA_HighEnergyThresholdString,
+            asynParamFloat64, &LAMBDA_HighEnergyThreshold);
+    status |= ADDriver::createParam(LAMBDA_LowEnergyThresholdString,
+            asynParamFloat64, &LAMBDA_LowEnergyThreshold);
     status |= ADDriver::createParam(LAMBDA_DecodedQueueDepthString,
             asynParamInt32, &LAMBDA_DecodedQueueDepth);
     status |= ADDriver::createParam(LAMBDA_OperatingModeString,
@@ -829,8 +831,11 @@ asynStatus ADLambda::writeFloat64(asynUser *pasynUser, epicsFloat64 value) {
         lambdaInstance->SetDelayTime(acquirePeriod);
         setDoubleParam(function, acquirePeriod);
     }
-    else if (function == LAMBDA_EnergyThreshold){
+    else if (function == LAMBDA_LowEnergyThreshold){
         lambdaInstance->SetThreshold((int)0, (float)value);
+    }
+    else if (function == LAMBDA_HighEnergyThreshold){
+        lambdaInstance->SetThreshold((int)1, (float)value);
     }
     else {
         if (function < LAMBDA_FIRST_PARAM) {
@@ -899,7 +904,14 @@ asynStatus ADLambda::writeInt32(asynUser *pasynUser, epicsInt32 value) {
             setIntegerParam(NDDataType, NDUInt32);
             callParamCallbacks();
             createImageHandlerThread();
-        }        
+        }
+        else if(value == 2) {
+            killImageHandlerThread();
+            lambdaInstance->SetOperatingMode(string("DualThreshold"));
+            setIntegerParam(NDDataType, NDUInt16);
+            callParamCallbacks();
+            createImageHandlerThread();
+        }
     }
     else if (function < LAMBDA_FIRST_PARAM) {
         status = ADDriver::writeInt32(pasynUser, value);
