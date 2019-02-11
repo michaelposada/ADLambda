@@ -9,10 +9,18 @@ record(waveform, "$(P)$(R)ConfigFilePath")
 }
 
 
-record(ao, "$(P)$(R)EnergyThreshold")
+record(ao, "$(P)$(R)HighEnergyThreshold")
 {
    field(DTYP, "asynFloat64")
-   field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))LAMBDA_ENERGY_THRESHOLD")
+   field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))LAMBDA_HENERGY_THRESHOLD")
+   field(PREC, "4")
+}
+
+
+record(ao, "$(P)$(R)LowEnergyThreshold")
+{
+   field(DTYP, "asynFloat64")
+   field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))LAMBDA_LENERGY_THRESHOLD")
    field(PREC, "4")
 }
 
@@ -63,6 +71,8 @@ record(mbbo, "$(P)$(R)OperatingMode")
    field(ZRVL, "0")
    field(ONST, "TwentyFourBit")
    field(ONVL, "1")
+   field(TWST, "DualThreshold")
+   field(TWVL, "2")
    field(VAL,  "0")
    info(autosaveFields, "VAL")
 }
@@ -75,6 +85,8 @@ record(mbbi, "$(P)$(R)OperatingMode_RBV")
    field(ZRVL, "0")
    field(ONST, "TwentyFourBit")
    field(ONVL, "1")
+   field(TWST, "DualThreshold")
+   field(TWVL, "2")
    field(VAL,  "0")
    field(SCAN, "I/O Intr")
    info(autosaveFields, "VAL")
