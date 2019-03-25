@@ -43,7 +43,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db")
 # */
 # config directory contains configuration files defined Globals.h, IP addresses, gains, and Medapix3 chip parameters
 #int LambdaConfig(const char *portName, const char* configPath, int maxBuffers, size_t maxMemory, int priority, int stackSize) {
-LambdaConfig("$(PORT)", "/localdata/config",  0, 0, 0, 0)
+LambdaConfig("$(PORT)", "/opt/xsp/config",  0, 0, 0, 0)
 epicsThreadSleep(2)
 
 asynSetTraceIOMask($(PORT), 0, 2)
