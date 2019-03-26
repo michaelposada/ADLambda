@@ -907,7 +907,7 @@ asynStatus ADLambda::writeInt32(asynUser *pasynUser, epicsInt32 value) {
         }
         else if(value == 2) {
             killImageHandlerThread();
-            lambdaInstance->SetOperationMode(string("DualThreshold"));
+            lambdaInstance->SetOperationMode(string("DualThresholdCSM"));
             setIntegerParam(NDDataType, NDUInt16);
             callParamCallbacks();
             createImageHandlerThread();
