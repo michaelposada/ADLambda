@@ -912,6 +912,23 @@ asynStatus ADLambda::writeInt32(asynUser *pasynUser, epicsInt32 value) {
             callParamCallbacks();
             createImageHandlerThread();
         }
+        else if (value == 3){
+            killImageHandlerThread();
+            lambdaInstance->SetOperationMode(string("ContinuousReadWriteCSM"));
+            setIntegerParam(NDDataType, NDUInt16);
+            callParamCallbacks();
+            createImageHandlerThread();
+        }
+        else if(value == 4) {
+            killImageHandlerThread();
+            lambdaInstance->SetOperationMode(string("TwentyFourBitCSM"));
+            setIntegerParam(NDDataType, NDUInt32);
+            callParamCallbacks();
+            createImageHandlerThread();
+        }
+        else{
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "Error: Invalid operating mode\n");
+        }
     }
     else if (function < LAMBDA_FIRST_PARAM) {
         status = ADDriver::writeInt32(pasynUser, value);
