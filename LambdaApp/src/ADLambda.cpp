@@ -10,6 +10,8 @@
 #include <epicsExit.h>
 #include <epicsExport.h>
 
+#include <thread>
+#include <chrono>
 #include <iostream>
 #include <string.h>
 #include "ADLambda.h"
@@ -150,6 +152,10 @@ asynStatus ADLambda::acquireStart(){
     imageDataType = (NDDataType_t)dataType;
     acquiringData = true;
     acquiredImages = 0;
+    while(lambdaInstance->GetState() != FINISHED)
+      {
+	std::chrono::milliseconds timespan(100);
+      }
     lambdaInstance->StartImaging();
 
 
